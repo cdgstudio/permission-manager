@@ -1,0 +1,3 @@
+[build]
+  command = "npm run prerender"
+  publish = "dist/app/browser"
