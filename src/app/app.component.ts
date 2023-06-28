@@ -1,10 +1,21 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavComponent } from './nav.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+    <app-nav />
+    <router-outlet />
+  `,
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
+  standalone: true,
+  imports: [RouterOutlet, NavComponent],
 })
-export class AppComponent {
-  title = 'permission-manager';
-}
+export class AppComponent {}

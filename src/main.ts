@@ -1,7 +1,23 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { ROOT_ROUTES } from './app/routes';
+import { APP_INITIALIZER, inject } from '@angular/core';
+import { PermissionManagerService } from 'permission-manager';
 
-import { AppModule } from './app/app.module';
+export function loadUserPermissionsFactory() {
+  const manager = inject(PermissionManagerService);
 
+  return () => manager.loadUserPermissions(['CAN_FIX', 'CAN_READ']);
+}
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(ROOT_ROUTES),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadUserPermissionsFactory,
+      multi: true,
+    },
+  ],
+});
