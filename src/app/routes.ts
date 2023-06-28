@@ -16,4 +16,9 @@ export const ROOT_ROUTES: Routes = [
     path: 'b',
     loadComponent: () => import('./403.component'),
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/a',
+  },
 ];
